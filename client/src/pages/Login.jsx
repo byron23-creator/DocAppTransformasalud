@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
+import { useNavigate } from 'react-router-dom'
 
 const styles = {
     page: {
@@ -79,6 +80,8 @@ export default function Login() {
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -91,7 +94,7 @@ export default function Login() {
                 password, 
     })
     localStorage.setItem('token', res.data.token)
-    alert('Login exitoso - aquí irá el Dashboard')
+    navigate('/dashboard')
     } catch (err) {
     setError(err.response?.data?.message || 'Error al conectar con el servidor')
     }finally {
